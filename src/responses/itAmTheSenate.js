@@ -1,5 +1,6 @@
 
 module.exports = {
+  id: 'response_i_am_the_senate',
   canHandle: (message) => {
     return message.content.toLowerCase().includes('the senate');
   },

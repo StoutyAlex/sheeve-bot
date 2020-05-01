@@ -14,7 +14,7 @@ bot.on('message', (message) => {
   if (message.author === bot.user) return; // don't respond to its own messages
 
   const { content } = message;
-  return content.startsWith(commandPrefix) ? handleCommand(message) : handleResponse(message);
+  const response = content.startsWith(commandPrefix) ? handleCommand(message) : handleResponse(message);
 });
 
 bot.login(token);

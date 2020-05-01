@@ -1,5 +1,6 @@
 
 module.exports = {
+  id: 'do_it',
   canHandle: (message) => {
     return message.content.toLowerCase().includes('do it');
   },
