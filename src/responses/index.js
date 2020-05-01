@@ -4,5 +4,6 @@ module.exports = [
   require('./itsTreasonThen'),
   require('./unlimitedPower'),
   require('./masterJedi'),
-  require('./darthTheWise')
+  require('./darthTheWise'),
+  require('./serverIp'),
 ];
