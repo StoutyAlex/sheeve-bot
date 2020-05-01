@@ -1,0 +1,19 @@
+{
+  "name": "sheevebot",
+  "version": "0.1.0",
+  "description": "Sheeve Bot for discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "sheeve",
+    "bot"
+  ],
+  "author": "Alex Stout",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0"
+  }
+}
