@@ -1,12 +1,6 @@
 const Discord = require('discord.js');
 
-const regex = /teams(?: of ([0-9]+)){1}/
-
-// take a string of names space seperated
-// make sure number can't be bigger than 10
-// look up equal array sorting thing
-
-// sheev teams of 2 alex meatball luca kieran
+const regex = /teams(?: of ([0-9])){0,1}/;
 
 const shuffle = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -29,14 +23,6 @@ const chunkArray = (myArray, chunk_size) => {
   return tempArray;
 }
 
-// check the remainder
-// shuffle
-// remove what the remainder is
-// do the chunk
-// add on at the end
-
-// team list == number to split (invalid)
-
 module.exports = {
   id: 'command_teams',
   canHandle: (message) => {
@@ -44,9 +30,12 @@ module.exports = {
   },
   handle: (message) => {
     const regexResult = message.content.match(regex);
-    const perTeam = regexResult[1];
 
     const teamList = message.content.substring(regexResult[0].length).trim().split(' ');
+
+    const perTeam = parseInt(regexResult[1]) || teamList.length / 2;
+
+    if (perTeam == teamList.length) return message.channel.send('You already have a full team');
 
     const shuffledTeams = shuffle(teamList);
     const finalTeams = chunkArray(shuffledTeams, perTeam);
