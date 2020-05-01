@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+
 const triggerPrases = [
   'minecraft ip',
   'server ip',
@@ -5,9 +7,9 @@ const triggerPrases = [
 ];
 
 const check = (messageContent) => {
-  triggerPrases.forEach(phrase => {
-    if (messageContent.includes(phrase)) return true;
-  })
+  for (let i = 0; i != triggerPrases.length; i++) {
+    if (messageContent.includes(triggerPrases[i])) return true
+  }
   return false;
 };
 
@@ -17,7 +19,6 @@ module.exports = {
     return check(message.content);
   },
   handle: (message) => {
-
     const fields = [
       { name: 'Feed The Beast', value: 'TheSenate.playat.ch:25565' },
       { name: 'Minigames', value: 'TheSenate.playat.ch:25566' },
