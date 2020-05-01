@@ -4,6 +4,6 @@ module.exports = {
     return message.content.toLowerCase().includes('the senate');
   },
   handle: (message) => {
-    message.reply('I AM THE SENATE!');
+    message.channel.send('I AM THE SENATE!');
   }
 };

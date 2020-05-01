@@ -18,7 +18,7 @@ const handleCommand = (message) => {
   [ command, ...rest ] = commands.filter(command => command.canHandle(message));
   
   if (!command || !command.handle ) {
-    return message.reply('Invalid command');
+    return message.channel.send('Invalid command');
   }
 
   return command.handle(message);

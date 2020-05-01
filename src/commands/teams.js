@@ -4,6 +4,7 @@ module.exports = {
     return message.content == 'hello';
   },
   handle: (message) => {
-    message.reply('Hello there');
+    console.log(message.channel);
+    message.channel.send('Hello there');
   }
 };

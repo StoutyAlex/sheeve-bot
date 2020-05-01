@@ -11,8 +11,7 @@ bot.on('ready', () => {
 });
 
 bot.on('message', (message) => {
-  const senderId = message.author.id;
-  if (senderId === bot.user.id) return;
+  if (message.author === bot.user) return; // don't respond to its own messages
 
   const { content } = message;
   return content.startsWith(commandPrefix) ? handleCommand(message) : handleResponse(message);
