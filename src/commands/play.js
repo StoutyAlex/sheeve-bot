@@ -3,6 +3,7 @@ const ytdl = require('ytdl-core');
 const command = 'play';
 
 // Search youtube for the first phrase it gets
+// store a connection thing
 
 module.exports = {
   id: 'command_play',
