@@ -1,3 +1,4 @@
 module.exports = [
-  require('./teams')
+  require('./teams'),
+  require('./say')
 ];
