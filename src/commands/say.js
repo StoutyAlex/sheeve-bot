@@ -9,6 +9,15 @@ const supportedAudio = Object.fromEntries(
 
 const command = 'say';
 
+const getAudioFile = (phrase) => {
+  if (phrase !== 'random') return supportedAudio[phrase];
+
+  const supportedArray = Object.keys(supportedAudio);
+  const randomNumber = Math.floor(Math.random() * supportedArray.length);
+
+  return supportedAudio[supportedArray[randomNumber]];
+}
+
 module.exports = {
   id: 'command_say',
   canHandle: (message) => {
@@ -18,8 +27,8 @@ module.exports = {
     const phrase = message.content.substring(command.length).trim().toLowerCase();
 
     const audioPhrase = phrase.split(' ').join('-');
-    const audioFile = supportedAudio[audioPhrase]
-    
+    const audioFile = getAudioFile(audioPhrase);
+
     if (!audioFile) {
       const supportedAudioText = Object.keys(supportedAudio).join('\n').replace(/-/g, ' ');
       const fields = [ { name: 'Phrases', value: supportedAudioText } ];
@@ -35,8 +44,7 @@ module.exports = {
     if (!voiceChannel) return message.channel.send('Try again while in a voice channel');
 
     voiceChannel.join().then(connection => {
-      const player = connection.play(`./src/assets/audio/${audioFile}`);
-      player.on('finish', () => voiceChannel.leave());
+      connection.play(`./src/assets/audio/${audioFile}`);
     }).catch(err => console.log(err))
   }
 };

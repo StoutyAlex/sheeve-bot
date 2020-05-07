@@ -33,6 +33,7 @@ const handleCommand = (message) => {
   }
 
   logResult(previousCommands, command.id);
+
   return command.handle(message, previousCommands);
 }
 

@@ -13,7 +13,7 @@ bot.on('ready', () => {
 bot.on('message', (message) => {
   if (message.author === bot.user) return; // don't respond to its own messages
 
-  const content = message.content.toLowerCase();
+  const content = message.content;
   
   content.startsWith(commandPrefix) ? handleCommand(message) : handleResponse(message);
 });

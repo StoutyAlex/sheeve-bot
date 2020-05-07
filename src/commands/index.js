@@ -1,4 +1,6 @@
 module.exports = [
   require('./teams'),
-  require('./say')
+  require('./say'),
+  require('./play'),
+  require('./stop')
 ];
