@@ -33,6 +33,8 @@ module.exports = {
 
     const teamList = message.content.substring(regexResult[0].length).trim().split(' ');
 
+    if (teamList.length === 1) return message.channel.send('No team provided');
+
     const perTeam = parseInt(regexResult[1]) || teamList.length / 2;
 
     if (perTeam == teamList.length) return message.channel.send('You already have a full team');
