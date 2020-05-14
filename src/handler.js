@@ -1,6 +1,8 @@
 const commands = require('./commands');
 const responses = require('./responses');
 
+const Log = require('./database/models/Log');
+
 const { commandPrefix, maxHistory } = require('./config');
 
 const previousCommands = [];
@@ -30,6 +32,18 @@ const handleCommand = (message) => {
   
   if (!command || !command.handle ) {
     return message.channel.send('Invalid command');
+  }
+
+  const { id, username } = message.author;
+  
+  if (command.log !== false) {
+    new Log({
+      userId: id,
+      username,
+      commandId: command.id,
+      commandDisplayName: command.displayName,
+      phrase: message.content
+    }).save();
   }
 
   logResult(previousCommands, command.id);
