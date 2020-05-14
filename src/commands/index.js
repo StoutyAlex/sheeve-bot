@@ -2,5 +2,6 @@ module.exports = [
   require('./teams'),
   require('./say'),
   require('./play'),
-  require('./stop')
+  require('./stop'),
+  require('./audit'),
 ];

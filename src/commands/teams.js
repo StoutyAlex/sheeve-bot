@@ -25,6 +25,7 @@ const chunkArray = (myArray, chunk_size) => {
 
 module.exports = {
   id: 'command_teams',
+  displayName: 'teams',
   canHandle: (message) => {
     return message.content.match(regex);
   },

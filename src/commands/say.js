@@ -20,6 +20,7 @@ const getAudioFile = (phrase) => {
 
 module.exports = {
   id: 'command_say',
+  displayName: 'say',
   canHandle: (message) => {
     return message.content.toLowerCase().startsWith(command);
   },

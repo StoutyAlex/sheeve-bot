@@ -5,6 +5,7 @@ const command = 'stop';
 
 module.exports = {
   id: 'command_leave',
+  displayName: 'stop',
   canHandle: (message) => {
     return message.content.toLowerCase().startsWith(command);
   },

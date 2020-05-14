@@ -7,6 +7,7 @@ const command = 'play';
 
 module.exports = {
   id: 'command_play',
+  displayName: 'play',
   canHandle: (message) => {
     return message.content.toLowerCase().startsWith(command);
   },
