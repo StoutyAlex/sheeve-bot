@@ -4,4 +4,5 @@ module.exports = [
   require('./play'),
   require('./stop'),
   require('./audit'),
+  require('./quiz'),
 ];
