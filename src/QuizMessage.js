@@ -26,7 +26,6 @@ class QuizMessage {
       if (item.userId === userId && item.messageId === messageId && item.questionId === questionId) return false;
       return true;
     });
-    console.log(messageId, userId, questionId);
     QuizMessages.findOneAndDelete({ messageId, userId, questionId} ).exec();
   }
 }
