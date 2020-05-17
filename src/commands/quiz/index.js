@@ -11,6 +11,8 @@ const command = 'quiz';
 // return random question
 // handle react of question somewhere
 
+// TODO: Make it so that if there is an unanswered question in the QuizMessages we load that
+
 module.exports = {
   id: 'command_quiz',
   displayName: 'quiz',
@@ -18,24 +20,12 @@ module.exports = {
     return message.content.toLowerCase().startsWith(command);
   },
   handle: async (message) => {
-    // const quizLog = await QuizLog.findOne({ userId: message.author.id }) || 'not-set';/
-
-    const quizLog = {
-      userId: message.author.id,
-      answered: [
-        {
-          id: 'one',
-          correct: true
-        },
-        {
-          id: 'two',
-          correct: false
-        },
-      ],
-      unanswered: [
-        // get this if there is one availiable
-      ]
-    };
+    let quizLog = await QuizLog.findOne({ userId: message.author.id });
+    
+    if (!quizLog) {
+      quizLog = new QuizLog({ userId: message.author.id, answered: [], unanswered: [] });
+      await quizLog.save();
+    }
 
     const answered = quizLog.answered.map(question => question.id);
     const questionIds = Object.keys(questions);

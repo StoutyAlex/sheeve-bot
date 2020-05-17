@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const { DB_URI } = require('./src/config');
 const QuizMessage = require('./src/QuizMessage');
 
+const answer = require('./src/commands/quiz/answer');
+
 mongoose.connect(DB_URI);
 
 const { handleCommand, handleResponse } = require('./src/handler');
@@ -29,10 +31,16 @@ bot.on('messageReactionAdd', async (messageReaction, user) => {
   const messageId = messageReaction.message.id;
   const userId = user.id
 
-  const quizMess = QuizMessage.get({ messageId: messageId, userId: userId });
-  if (!quizMess) return; // user was not owner of message
+  const emoji = messageReaction._emoji.name;
 
-  await answer(quizMess);
+  if(!['1️⃣', '2️⃣', '3️⃣', '4️⃣'].includes(emoji)) return;
+
+  const quizMess = QuizMessage.get({ messageId: messageId, userId: userId });
+  if (!quizMess) return;
+
+  const correct = await answer(quizMess, emoji);
+
+  correct ? messageReaction.message.react('✅') : messageReaction.message.react('❌');
 });
 
 bot.login(token);

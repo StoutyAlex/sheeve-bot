@@ -20,6 +20,15 @@ class QuizMessage {
       return false;
     })[0] || null;
   }
+
+  async remove({ messageId, userId, questionId}) {
+    this.message = this.message.filter((item) => {
+      if (item.userId === userId && item.messageId === messageId && item.questionId === questionId) return false;
+      return true;
+    });
+    console.log(messageId, userId, questionId);
+    QuizMessages.findOneAndDelete({ messageId, userId, questionId} ).exec();
+  }
 }
 
 const singleton = new QuizMessage();
