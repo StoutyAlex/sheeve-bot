@@ -1,4 +1,7 @@
 const ytdl = require('ytdl-core');
+const YouTube = require('discord-youtube-api');
+
+const youtube = new YouTube(process.env.YOUTUBE_API);
 
 const command = 'play';
 
@@ -12,11 +15,17 @@ module.exports = {
     return message.content.toLowerCase().startsWith(command);
   },
   handle: async (message) => {
-    const phrase = message.content.substring(command.length).trim();
+    let phrase = message.content.substring(command.length).trim();
     const voiceChannel = message.member.voice.channel;
     
     if (!voiceChannel) return message.channel.send('Try again while in a voice channel');
-    
+
+    if (!phrase.includes('youtube.com')) {
+      const video = await youtube.searchVideos(phrase.toString().replace(/,/g,' '))
+      phrase = video.url;
+      message.channel.send(`Playing: ${phrase}`);
+    }
+
     voiceChannel.join().then(connection => {
       connection.play(ytdl(phrase));
     }).catch(err => console.log(err))
