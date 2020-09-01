@@ -15,7 +15,7 @@ const logResult = (array, id) => {
   array.push(id);
 }
 
-const handleResponse = (message) => {
+const handleResponse = (message, serverQueue) => {
   [ response, ...rest ] = responses.filter(response => response.canHandle(message, previousResponses));
 
   if (!response || !response.handle ) {
@@ -26,7 +26,7 @@ const handleResponse = (message) => {
   return response.handle(message, previousResponses);
 };
 
-const handleCommand = (message) => {
+const handleCommand = (message, serverQueue) => {
   message.content = message.content.substring(commandPrefix.length).trim();
   [ command, ...rest ] = commands.filter(command => command.canHandle(message, previousCommands));
   
@@ -48,7 +48,7 @@ const handleCommand = (message) => {
 
   logResult(previousCommands, command.id);
 
-  return command.handle(message, previousCommands);
+  return command.handle(message, previousCommands, serverQueue);
 }
 
 module.exports = { handleCommand, handleResponse };

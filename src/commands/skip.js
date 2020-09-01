@@ -1,11 +1,11 @@
+const ytdl = require('ytdl-core');
+const queue = require('../queue');
 
-const command = 'stop';
-
-// does not leave the channel need a global queue state
+const command = 'skip';
 
 module.exports = {
-  id: 'command_leave',
-  displayName: 'stop',
+  id: 'command_skip',
+  displayName: 'skip',
   canHandle: (message) => {
     return message.content.toLowerCase().startsWith(command);
   },
@@ -14,7 +14,8 @@ module.exports = {
       return message.channel.send(
         "You have to be in a voice channel to stop the music!"
       );
-    serverQueue.songs = [];
+    if (!serverQueue)
+      return message.channel.send("There is no song that I could skip!");
     serverQueue.connection.dispatcher.end();
   }
 };

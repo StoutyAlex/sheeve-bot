@@ -5,4 +5,6 @@ module.exports = [
   require('./stop'),
   require('./audit'),
   require('./quiz'),
+  require('./skip'),
+  require('./ear'),
 ];

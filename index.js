@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const { DB_URI } = require('./src/config');
 const QuizMessage = require('./src/QuizMessage');
 
+const queue = require('./src/queue');
+const state = require('./src/serverState');
+
 const answer = require('./src/commands/quiz/answer');
 
 mongoose.connect(DB_URI);
@@ -22,9 +25,33 @@ bot.on('ready', async () => {
 bot.on('message', (message) => {
   if (message.author === bot.user) return; // don't respond to its own messages
 
+  const serverQueue = queue.get(message.guild.id);
+  const serverState = state.get(message.guild.id);
+
+  if (!serverQueue) {
+    queue.set(message.guild.id, {
+      textChannel: message.channel,
+      voiceChannel: message.member.voice.channel || null,
+      connection: null,
+      songs: [],
+      volume: 5,
+      playing: true,
+      ear: true,
+    })
+  }
+
+  if (!serverState) {
+    state.set(message.guild.id, {
+      textChannel: message.channel,
+      voiceChannel: message.member.voice.channel || null,
+      connection: null,
+      ear: true,
+    });
+  }
+
   const content = message.content;
   
-  content.startsWith(commandPrefix) ? handleCommand(message) : handleResponse(message);
+  content.startsWith(commandPrefix) ? handleCommand(message, serverQueue) : handleResponse(message, serverQueue);
 });
 
 bot.on('messageReactionAdd', async (messageReaction, user) => {
