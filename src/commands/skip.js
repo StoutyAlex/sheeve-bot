@@ -9,7 +9,11 @@ module.exports = {
   canHandle: (message) => {
     return message.content.toLowerCase().startsWith(command);
   },
-  handle: async (message, _, serverQueue) => {
+  handle: async (message) => {
+    const serverQueue = queue.get(message.guild.id);
+
+    console.log(serverQueue);
+
     if (!message.member.voice.channel)
       return message.channel.send(
         "You have to be in a voice channel to stop the music!"
